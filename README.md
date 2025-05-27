@@ -1,4 +1,4 @@
-# docker-postgres
+# Postgres Server in Docker
 
 Run Postgres Server in Docker for local development.
 
