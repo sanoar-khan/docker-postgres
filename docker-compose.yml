@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: postgres:${POSTGRES_IMAGE_TAG}
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER_FILE: /run/secrets/postgres-user
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres-password
+    volumes:
+      - ./dbdata/postgres:/var/lib/postgresql/data
+    ports:
+      - ${POSTGRES_PORT}:5432
+    networks:
+      - db-network
+    secrets:
+      - postgres-user
+      - postgres-password
+
+secrets:
+  postgres-user:
+    file: secrets/postgres-user.txt
+  postgres-password:
+    file: secrets/postgres-password.txt
+
+networks:
+  db-network:
+    driver: bridge
